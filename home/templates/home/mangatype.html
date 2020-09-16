@@ -1,0 +1,10 @@
+{%extends 'home/base.html'%}
+{%block manga%}
+{% for manga in mangas %}
+	<div class="col-3">
+		<div><img class="w-100 img-fluid" src="{{manga.avatar.url}}" /></div>
+		<a class="nav-link text-dark text-center font-weight-bold" href="{%url 'home:mangainfo' manga.name%}">{{manga.name}}</a>
+                <h6 class="font-weight-light text-center">Chap {{manga.current_chap}}</h6>
+        </div>
+{% endfor %}
+{%endblock%}

@@ -1,0 +1,22 @@
+{%extends 'home/base.html'%}
+{%block manga%}
+{%if mangainfo%}
+{% for manga in mangainfo %}
+	<div class="col-sm-4 col-lg-3">
+	<div class="card" style="margin-top:20px;">
+		<div ><img class="w-100 img-fluid" src="{{manga.avatar.url}}" /></div>
+		<a class="nav-link text-dark text-center font-weight-bold" href="{%url 'home:mangainfo' manga.name%}">{{manga.name}}</a>
+                <h6 class="font-weight-light text-center">Chap {{manga.current_chap}}</h6>
+        </div>
+	</div>
+{% endfor %}
+{%else%}
+	{%if error%}
+		<script>
+			window.location.href="/";
+        </script>
+	{%else%}
+		<p>Can't find any manga</p>
+	{%endif%}
+{%endif%}
+{%endblock%}

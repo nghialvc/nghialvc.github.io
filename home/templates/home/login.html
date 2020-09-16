@@ -1,0 +1,26 @@
+{%extends 'home/base.html'%}
+{%block manga%}
+<div class="col-12 text-center card" style="height:500px;">
+	<h1 class="text-danger"><strong>LOG IN</strong></h1>
+    <hr />
+    <p class="text-danger">{{error}}</p>
+	<form method="POST" class="text-center">
+        {% csrf_token %}
+        {% for key, value in form.errors.items %}
+            {{value}}
+        {% endfor %}
+        <div class="card-body">
+        	<label>Username: </label>
+            <input class="text-center" type="text" name="username" maxlength="150" id="id_username">
+        </div>
+        <div class="card-body">
+        	<label>Password: </label>
+            <input class="text-center" type="password" name="password" id="id_password">
+        </div>
+        <div>
+        	<input type="hidden" name="next" value="/"/>
+        	<input class="btn-success rounded" type="submit" value="Log in"/>
+        </div>
+    </form>
+</div>
+{%endblock%}

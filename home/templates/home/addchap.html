@@ -1,0 +1,23 @@
+{%extends 'home/base.html'%}
+{%block manga%}
+{% if user.is_superuser%}
+<div class="col-12 card text-center">
+	<h1><strong>ADD CHAP</strong></h1>
+    <hr />
+	<form method="post" enctype="multipart/form-data" class="text-center">
+    {%csrf_token%}
+        {% for key, value in form.errors.items %}
+            {{value}}
+        {% endfor %}
+        <p><label for="id_name">Name:</label> <input type="text" readonly="readonly" name="name" maxlength="200" required="" id="id_name" value="{{manganame}}"></p>
+<p><label for="id_chap">Chap:</label> <input type="number" name="chap" value="1" required="" id="id_chap"></p>
+<input type="hidden" name="page" value="0" required="" id="id_page">
+<p><label for="id_content">Content:</label> <input type="file" name="content" accept="image/*" required="" id="id_content" multiple="multiple"></p>
+        <input class="btn-danger" type="submit" value="Upload Image">
+    </form>
+{%else%}
+<script>
+	window.location.href = "/";
+</script>
+{%endif%}
+{%endblock%}

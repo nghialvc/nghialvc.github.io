@@ -1,0 +1,50 @@
+{%extends 'home/base.html'%}
+{%block manga%}
+<div class="col-12 text-center">
+{%if error%}
+	<p>{{error}}</p>
+{%else%}
+	<div class="row">
+		<button class="col-2 btn-primary h-75 align-self-center" name="btnlast"><i class="fa fa-arrow-left"></i></button>
+    	<h2 class="col-8 text-danger font-weight-bold">{{content.0.name}}</h2>
+    	<button class="col-2 btn-primary h-75 align-self-center" name="btnnext"><i class="fa fa-arrow-right"></i></button>
+	</div>
+	<hr />
+	{% for chap in content %}
+		<p class="d-block"><img class="w-100 img-fluid" src="{{chap.content.url}}" /></p>
+	{% endfor %}
+{%endif%}
+<div class="row">
+	<button class="col-2 btn-primary h-75 align-self-center" name="btnlast"><i class="fa fa-arrow-left"></i></button>
+    <div class="col-8">
+    <select class="col-8 btn-infomation" id="selectid">
+    	{%for chap in listchap%}
+        	{%if chap == content.0.chap%}
+        		<option class="btn-primary" selected="selected" value="{%url 'home:mangacontent' content.0.name chap%}" id="option {{chap}}">Chap {{chap}}</option>
+        	{%else%}
+        		<option value="{%url 'home:mangacontent' content.0.name chap%}" id="option {{chap}}">Chap {{chap}}</option>
+        	{%endif%}
+        {%endfor%}
+    </select>
+    </div>
+    <button class="col-2 btn-primary h-75 align-self-center" name="btnnext"><i class="fa fa-arrow-right"></i></button>
+</div>
+</div>
+<script>
+	$('#selectid').change(function(){
+		window.location.href = $('#selectid').val();
+	});
+	$('[name="btnlast"]').click(function(e) {
+		se = document.getElementById('selectid');
+		index = parseInt(se.selectedIndex)-1;
+		if (index >= 0)
+        	window.location.href = se.options[index].value;
+    });
+	$('[name="btnnext"]').click(function(e) {
+		se = document.getElementById('selectid');
+		index = parseInt(se.selectedIndex)+1;
+		if (index < se.options.length)
+        	window.location.href = se.options[index].value;
+    });
+</script>
+{%endblock%}

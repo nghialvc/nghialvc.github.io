@@ -1,0 +1,30 @@
+{%extends 'home/base.html'%}
+{%block manga%}
+		<div class="col-sm-8 row">
+		<div class="col-4 text-center">
+        	<div class="shadow rounded align-self-center"><img class="img-fluid" src="{{manga.avatar.url}}" /></div>
+            <hr />
+            <a href="{%url 'home:mangacontent' manga.name 1%}"><div class="btn btn-danger rounded-pill" style="width:50%;margin-bottom:10px;">Read</div></a>
+            {%if user.is_superuser%}
+            <a href="{%url 'home:addchap' manga.name%}"><div class="btn btn-success rounded-pill" style="width:50%;margin-bottom:10px;">New Chap</div></a>
+            {%endif%}
+        </div>
+        <div class="col-8">
+            <h3 class="font-weight-bold text-primary">{{manga.name}}</h3>
+            <h6>Author: {{manga.author}}</h6>
+            <h6>Current Chap: {{manga.current_chap}}</h6>
+            <h6 class="d-inline">Type: </h6><a class="d-inline" href="{%url 'home:mangatype' manga.manga_type.name%}"><div class="btn btn-warning">{{manga.manga_type.name}}</div></a>
+            <hr />
+            <h6>Description:</h6>
+            <p>{{manga.description}}</p>
+        </div>
+        </div>
+        <div class="col-sm-4 row card bg-light" style="margin-left:10px; height:450px; overflow:scroll;">
+        	<p class="card-title font-weight-bold text-danger"> List Chaps: </p>
+            <div class="card-body">
+            	{%for chap in listchap%}
+                <p><a class="text-decoration-none text-success" href="{%url 'home:mangacontent' manga.name chap%}">Chap {{chap}}</a></p>
+                {%endfor%}
+            </div>
+        </div>
+{%endblock%}
